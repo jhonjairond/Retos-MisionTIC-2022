@@ -32,6 +32,8 @@ menu=[                                                                   #el men
     'Cerrar sesión'
     ]
 
+opcionGlobal=0
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------funcion log in reto 1----------------------------------------------------------------------------
 
@@ -91,7 +93,7 @@ def pedirNumeroEntero(n,mensajePeticion,a,b,mensajeError):                   #n 
 #-----------------------------------------Distintas funciones del menu (para futuro reto)-------------------------------------------------------
 
 def cambiarContraseña():
-    print('Usted ha elegido la opción 1')
+    print('Usted ha elegido la opción ',opcionGlobal)
     #n=3
     global con
     while True:
@@ -139,7 +141,7 @@ def matrizCeros():
 matrizCeros()        
 
 def ingresarCoordenadasActuales():
-    print('Usted ha elegido la opción 2')
+    print('Usted ha elegido la opción ',opcionGlobal)
     global matrizCoordenadas                                      
     #print(matrizCoordenadas)   
     
@@ -206,21 +208,22 @@ def ingresarCoordenadasActuales():
 #................................................................................................................................................ 
    
 def ubicarZonaWifiMasCercana():
-    print('Usted ha elegido la opción 3')
+    print('Usted ha elegido la opción ',opcionGlobal)
 
 #................................................................................................................................................ 
 
 def guardarArchivoConUbicacionCercana():
-    print('Usted ha elegido la opción 4')
+    print('Usted ha elegido la opción ',opcionGlobal)
 
 #................................................................................................................................................ 
     
 def actualizarRegistrosDeZonasWifiDesdeArchivo():
-    print('Usted ha elegido la opción 5')
+    print('Usted ha elegido la opción ',opcionGlobal)
 
 #................................................................................................................................................ 
 
 def elegirOpcionDeMenuFavorita():
+    print('Usted ha elegido la opción ',opcionGlobal)
     opcionSeleccionadaFavorita=pedirNumeroEntero(1,'Seleccione opción favorita ',0,7,'Error')           
     if opcionSeleccionadaFavorita>=6 or opcionSeleccionadaFavorita<1:
         print('Error')
@@ -247,6 +250,7 @@ def elegirOpcionDeMenuFavorita():
 #................................................................................................................................................     
 
 def CerrarSesion():
+    print('Usted ha elegido la opción ',opcionGlobal)
     print('Hasta pronto')
     exit()
     
@@ -255,10 +259,12 @@ def CerrarSesion():
 #-----------------------------------------------Funcion que llama funciones de menu-------------------------------------------------------------
 
 def menuAcciones():
+    global opcionGlobal
     imprimirMenu()
     volverMenu=True
     while volverMenu==True:
         opcionSeleccionada=pedirNumeroEntero(3,'\nElija una opción ',1,7,'Error')              #ingreso  3 como argumento de mi funcion pedir numero entero, n=3 es el numero de equivocaciones, el argumento para el mensaje elija una opcion e intervalo entre el que debe escoger
+        opcionGlobal=opcionSeleccionada 
         opcion=menu[opcionSeleccionada-1]
         if opcion=='Cambiar Contraseña':
             cambiarContraseña()
