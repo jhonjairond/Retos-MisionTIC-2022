@@ -231,6 +231,9 @@ def ingresarCoordenadasActuales():
 def ubicarZonaWifiMasCercana():
     print('Usted ha elegido la opción ',opcionGlobal)
     
+    matrizCercania=[]
+    dosMinDistancia=[]
+    
     if matrizCoordenadas[0][0]==0:
         print('Error sin registro de coordenadas')
         exit()
@@ -255,18 +258,114 @@ def ubicarZonaWifiMasCercana():
             dzw2=distanciaUsuarioZona(lat,lon,zonasWifi[1][0],zonasWifi[1][1])
             dzw3=distanciaUsuarioZona(lat,lon,zonasWifi[2][0],zonasWifi[2][1])
             dzw4=distanciaUsuarioZona(lat,lon,zonasWifi[3][0],zonasWifi[3][1])
+            #print(dzw1)
+            #print(dzw2)
+            #print(dzw3)
+            #print(dzw4)
+            
+            matrizCercania.append(dzw1)
+            matrizCercania.append(dzw2)
+            matrizCercania.append(dzw3)
+            matrizCercania.append(dzw4)            
+            #print(matrizCercania)
+            
+            minDistancia1=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            #print(minDistancia1)
+            indiceMinDistancia1=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            #print(indiceMinDistancia1)
+            
+            matrizCercania[indiceMinDistancia1]=99999  #reemplazo el primer valor minimo por uno muy grande para buscar el segundo valor minimo y conservar los indices originales
+            
+            #print(matrizCercania)
+            
+            minDistancia2=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            #print(minDistancia2)
+            indiceMinDistancia2=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            #print(indiceMinDistancia2)
+            
+            print('Zonas wifi cercanas con menos usuarios')
+            print(f'La zona wifi {indiceMinDistancia1+1}: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
+            print(f'La zona wifi {indiceMinDistancia2+1}: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
+            
+            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')
+            
+            
+        elif seleccionada==2:
+            lat=matrizCoordenadas[1][0]
+            lon=matrizCoordenadas[1][1]           
+            dzw1=distanciaUsuarioZona(lat,lon,zonasWifi[0][0],zonasWifi[0][1])
+            dzw2=distanciaUsuarioZona(lat,lon,zonasWifi[1][0],zonasWifi[1][1])
+            dzw3=distanciaUsuarioZona(lat,lon,zonasWifi[2][0],zonasWifi[2][1])
+            dzw4=distanciaUsuarioZona(lat,lon,zonasWifi[3][0],zonasWifi[3][1])
             print(dzw1)
             print(dzw2)
             print(dzw3)
             print(dzw4)
             
-        elif seleccionada==2:
-            lat=matrizCoordenadas[1][0]
-            lon=matrizCoordenadas[1][1]
+            matrizCercania.append(dzw1)
+            matrizCercania.append(dzw2)
+            matrizCercania.append(dzw3)
+            matrizCercania.append(dzw4)            
+            print(matrizCercania)
+            
+            minDistancia1=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            print(minDistancia1)
+            indiceMinDistancia1=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            print(indiceMinDistancia1)
+            
+            matrizCercania[indiceMinDistancia1]=99999  #reemplazo el primer valor minimo por uno muy grande para buscar el segundo valor minimo y conservar los indices originales
+            
+            print(matrizCercania)
+            
+            minDistancia2=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            print(minDistancia2)
+            indiceMinDistancia2=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            print(indiceMinDistancia2)
+            
+            print('Zonas wifi cercanas con menos usuarios')
+            print(f'La zona wifi {indiceMinDistancia1+1}: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
+            print(f'La zona wifi {indiceMinDistancia2+1}: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
+            
+            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')
+            
+            
         elif seleccionada==3:
             lat=matrizCoordenadas[2][0]
             lon=matrizCoordenadas[2][1]
-            distanciaUsuarioZona(lat,lon)
+            dzw1=distanciaUsuarioZona(lat,lon,zonasWifi[0][0],zonasWifi[0][1])
+            dzw2=distanciaUsuarioZona(lat,lon,zonasWifi[1][0],zonasWifi[1][1])
+            dzw3=distanciaUsuarioZona(lat,lon,zonasWifi[2][0],zonasWifi[2][1])
+            dzw4=distanciaUsuarioZona(lat,lon,zonasWifi[3][0],zonasWifi[3][1])
+            #print(dzw1)
+            #print(dzw2)
+            #print(dzw3)
+            #print(dzw4)
+            
+            matrizCercania.append(dzw1)
+            matrizCercania.append(dzw2)
+            matrizCercania.append(dzw3)
+            matrizCercania.append(dzw4)            
+            #print(matrizCercania)
+            
+            minDistancia1=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            #print(minDistancia1)
+            indiceMinDistancia1=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            #print(indiceMinDistancia1)
+            
+            matrizCercania[indiceMinDistancia1]=99999  #reemplazo el primer valor minimo por uno muy grande para buscar el segundo valor minimo y conservar los indices originales
+            
+            #print(matrizCercania)
+            
+            minDistancia2=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
+            #print(minDistancia2)
+            indiceMinDistancia2=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
+            #print(indiceMinDistancia2)
+            
+            print('Zonas wifi cercanas con menos usuarios')
+            print(f'La zona wifi {indiceMinDistancia1+1}: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
+            print(f'La zona wifi {indiceMinDistancia2+1}: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
+            
+            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')
             
     
     
