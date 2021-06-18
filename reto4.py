@@ -1,8 +1,12 @@
-#limpio consola
+#importo los paquetes a utilizar
 import os
+import numpy as np
+import math
+
 #var=os.name
 #print("su sistema operativo es: ",var)
 os.system("cls")
+
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------------------Declaracion iniciacion de variables----------------------------------------------------------
@@ -33,6 +37,25 @@ menu=[                                                                   #el men
     ]
 
 opcionGlobal=0  #variable utilizada para guardar q opcion del menu eligio
+
+'''
+6   Tadó, Chocó     Lat1: 5.273     Lon1: -76.579    390
+                        
+
+                    Lat2: 5.311     Lon2: -76.413    333
+                        
+
+                    Lat3: 5.354     Lon3: -76.204    240
+                        
+
+                    Lat4: 5.306     Lon4: -76.332    793                   
+'''
+
+zonasWifi=[(5.273,-76.579,390),
+           (5.311,-76.413,333),
+           (5.354,-76.204,240),
+           (5.306,-76.332,793)]
+
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------funcion log in reto 1----------------------------------------------------------------------------
@@ -119,8 +142,6 @@ def cambiarContraseña():
 
 #       1   -Coordenada ubicada más al norte
 #           -Coordenada ubicada más al oriente
-
-import numpy as np
 
 f=3
 c=2
@@ -209,6 +230,53 @@ def ingresarCoordenadasActuales():
    
 def ubicarZonaWifiMasCercana():
     print('Usted ha elegido la opción ',opcionGlobal)
+    
+    if matrizCoordenadas[0][0]==0:
+        print('Error sin registro de coordenadas')
+        exit()
+    
+    else:
+        for i in range(f):
+            print('coordenada [latitud,longitud] ',i+1,' :',matrizCoordenadas[i])   
+        seleccionada=pedirNumeroEntero(1,'Por favor elija su ubicación actual (1,2 ó 3) para calcular la distancia a los puntos de conexión ',1,3,'Error ubicación')
+        
+        # lat1,lon1 seran de mi usuario, lat2,lon2 el punto wifi
+        def distanciaUsuarioZona(lat1,lon1,lat2,lon2):
+            r=6372.795477598
+            deltaLatitud=abs(lat1-lat2)
+            deltaLongitud=abs(lon1-lon2)
+            distancia=2*r*math.asin(math.sqrt(  (math.pow(math.sin(deltaLatitud/2),2))  +  (math.cos(lat1)  *  math.cos(lat2)  *  (math.pow(math.sin(deltaLongitud/2),2)))  ))
+            return distancia
+            
+        if seleccionada==1:
+            lat=matrizCoordenadas[0][0]
+            lon=matrizCoordenadas[0][1]
+            dzw1=distanciaUsuarioZona(lat,lon,zonasWifi[0][0],zonasWifi[0][1])
+            dzw2=distanciaUsuarioZona(lat,lon,zonasWifi[1][0],zonasWifi[1][1])
+            dzw3=distanciaUsuarioZona(lat,lon,zonasWifi[2][0],zonasWifi[2][1])
+            dzw4=distanciaUsuarioZona(lat,lon,zonasWifi[3][0],zonasWifi[3][1])
+            print(dzw1)
+            print(dzw2)
+            print(dzw3)
+            print(dzw4)
+            
+        elif seleccionada==2:
+            lat=matrizCoordenadas[1][0]
+            lon=matrizCoordenadas[1][1]
+        elif seleccionada==3:
+            lat=matrizCoordenadas[2][0]
+            lon=matrizCoordenadas[2][1]
+            distanciaUsuarioZona(lat,lon)
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 #................................................................................................................................................ 
 
@@ -276,7 +344,7 @@ def menuAcciones():
                                                      
         elif opcion=='Ubicar zona wifi más cercana':                                     
             ubicarZonaWifiMasCercana()
-            menuAcciones() 
+            #menuAcciones() 
             
         elif opcion=='Guardar archivo con ubicación cercana':
             guardarArchivoConUbicacionCercana()
