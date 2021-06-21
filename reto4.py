@@ -265,8 +265,7 @@ def ubicarZonaWifiMasCercana():
 
                 minDistancia2=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
                 indiceMinDistancia2=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
-                print(minDistancia1)
-                print(minDistancia2)
+                
                 print('Zonas wifi cercanas con menos usuarios')
                 
                 matrizPuntoUsuario=[lati,long]
