@@ -241,6 +241,18 @@ def ubicarZonaWifiMasCercana():
             distancia=2*r*math.asin(math.sqrt(  (math.pow(math.sin(deltaLatitud/2),2))  +  (math.cos(lat1)  *  math.cos(lat2)  *  (math.pow(math.sin(deltaLongitud/2),2)))  ))
             return distancia
         
+        def tiempoLlegada(distancia):
+            # 1       -Tiempo en bus                               -Tiempo a pie        
+            #         -Velocidad prom. bus: 16,67 m/s              – Velocidad prom. a pie: 0,483m/s 
+            velBus=16.67
+            velPie=0.483
+             
+            tiempoBus=distancia/velBus
+            tiempoPie=distancia/velPie
+            
+            print(f'Tiempo promedio que tardará en bus: {round(tiempoBus,2)} segundos')
+            print(f'Tiempo promedio que tardará a pie: {round(tiempoPie,2)} segundos')
+                   
         def calcularDistancias(lati,long):
                 for i in range(4):         
                     dzw=distanciaUsuarioZona(lati,long,zonasWifi[i][0],zonasWifi[i][1])    #hago uso de la funcion ue calcula la distancia entre dos puntos de punto usuario a las 4 zonas wi fi  y lleno una lista de 4 distancias para despues obtener distancias minimas
@@ -253,40 +265,112 @@ def ubicarZonaWifiMasCercana():
 
                 minDistancia2=round(min(matrizCercania),1)   #me extrae el valor minimo de las distancias  
                 indiceMinDistancia2=matrizCercania.index(min(matrizCercania)) #me esxtrae el indice del valor minimo de las distancias
-    
+                print(minDistancia1)
+                print(minDistancia2)
                 print('Zonas wifi cercanas con menos usuarios')
-                print(f'La zona wifi {indiceMinDistancia1+1}: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
-                print(f'La zona wifi {indiceMinDistancia2+1}: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
-        
-            
+                
+                matrizPuntoUsuario=[lati,long]
+                
+                if zonasWifi[indiceMinDistancia1][2]<zonasWifi[indiceMinDistancia2][2]:
+                    print(f'La zona wifi 1: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
+                    print(f'La zona wifi 2: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
+                    seleccionada2=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi') 
+                    if seleccionada2==1:
+                        if matrizPuntoUsuario[0]>zonasWifi[indiceMinDistancia1][0]:
+                            caminarNorteSur='sur'
+                        elif matrizPuntoUsuario[0]==zonasWifi[indiceMinDistancia1][0]:
+                            caminarNorteSur=''
+                        else:
+                            caminarNorteSur='norte'
+                            
+                        if matrizPuntoUsuario[1]>zonasWifi[indiceMinDistancia1][1]: 
+                            caminarOrienteOccidente='occidente'
+                        elif matrizPuntoUsuario[1]==zonasWifi[indiceMinDistancia1][1]: 
+                            caminarOrienteOccidente=''    
+                        else:
+                            caminarOrienteOccidente='oriente'
+                        print(f'Para dirigirse a la zona wifi dirigirse primero al {caminarOrienteOccidente} y luego hacia el {caminarNorteSur}') 
+                        tiempoLlegada(minDistancia1)
+                        input('Presione 0 para salir ')  
+                        menuAcciones()  
+                            
+                    elif seleccionada2==2:
+                        if matrizPuntoUsuario[0]>zonasWifi[indiceMinDistancia2][0]:
+                            caminarNorteSur='sur'
+                        elif matrizPuntoUsuario[0]==zonasWifi[indiceMinDistancia2][0]:
+                            caminarNorteSur=''
+                        else:
+                            caminarNorteSur='norte'
+                            
+                        if matrizPuntoUsuario[1]>zonasWifi[indiceMinDistancia2][1]: 
+                            caminarOrienteOccidente='occidente'
+                        elif matrizPuntoUsuario[1]==zonasWifi[indiceMinDistancia2][1]: 
+                            caminarOrienteOccidente='' 
+                        else:
+                            caminarOrienteOccidente='oriente'       
+                        print(f'Para dirigirse a la zona wifi dirigirse primero al {caminarOrienteOccidente} y luego hacia el {caminarNorteSur}')  
+                        tiempoLlegada(minDistancia2)   
+                        input('Presione 0 para salir ')  
+                        menuAcciones()  
+                    
+                else:
+                    print(f'La zona wifi 1: ubicada en [{zonasWifi[indiceMinDistancia2][0]},{zonasWifi[indiceMinDistancia2][1]}] a {minDistancia2} metros , tiene en promedio {zonasWifi[indiceMinDistancia2][2]} usuarios')
+                    print(f'La zona wifi 2: ubicada en [{zonasWifi[indiceMinDistancia1][0]},{zonasWifi[indiceMinDistancia1][1]}] a {minDistancia1} metros , tiene en promedio {zonasWifi[indiceMinDistancia1][2]} usuarios')
+                    seleccionada2=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')   
+                
+                    if seleccionada2==1:
+                        if matrizPuntoUsuario[0]>zonasWifi[indiceMinDistancia2][0]:
+                            caminarNorteSur='sur'
+                        elif matrizPuntoUsuario[0]==zonasWifi[indiceMinDistancia2][0]:
+                            caminarNorteSur=''
+                        else:
+                            caminarNorteSur='norte'
+                                
+                        if matrizPuntoUsuario[1]>zonasWifi[indiceMinDistancia2][1]: 
+                            caminarOrienteOccidente='occidente'
+                        elif matrizPuntoUsuario[1]==zonasWifi[indiceMinDistancia2][1]: 
+                            caminarOrienteOccidente=''    
+                        else:
+                            caminarOrienteOccidente='oriente'
+                        print(f'Para dirigirse a la zona wifi dirigirse primero al {caminarOrienteOccidente} y luego hacia el {caminarNorteSur}')       
+                        tiempoLlegada(minDistancia2)  
+                        input('Presione 0 para salir ')  
+                        menuAcciones()  
+                            
+                    elif seleccionada2==2:
+                        if matrizPuntoUsuario[0]>zonasWifi[indiceMinDistancia1][0]:
+                            caminarNorteSur='sur'
+                        elif matrizPuntoUsuario[0]==zonasWifi[indiceMinDistancia1][0]:
+                            caminarNorteSur=''
+                        else:
+                            caminarNorteSur='norte'
+                            
+                        if matrizPuntoUsuario[1]>zonasWifi[indiceMinDistancia1][1]: 
+                            caminarOrienteOccidente='occidente'
+                        elif matrizPuntoUsuario[1]==zonasWifi[indiceMinDistancia1][1]: 
+                            caminarOrienteOccidente='' 
+                        else:
+                            caminarOrienteOccidente='oriente'       
+                        print(f'Para dirigirse a la zona wifi dirigirse primero al {caminarOrienteOccidente} y luego hacia el {caminarNorteSur}')         
+                        tiempoLlegada(minDistancia1)    
+                        input('Presione 0 para salir ')  
+                        menuAcciones()    
+
         if seleccionada==1:
             lat=matrizCoordenadas[0][0]
             lon=matrizCoordenadas[0][1]
-            calcularDistancias(lat,lon)
-            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')           
-            
+            calcularDistancias(lat,lon) 
+                                          
         elif seleccionada==2:
             lat=matrizCoordenadas[1][0]
             lon=matrizCoordenadas[1][1]  
             calcularDistancias(lat,lon)           
-            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')
             
         elif seleccionada==3:
             lat=matrizCoordenadas[2][0]
             lon=matrizCoordenadas[2][1]
-            calcularDistancias(lat,lon)
-            seleccionada=pedirNumeroEntero(1,'Elija 1 o 2 para recibir indicaciones de llegada ',1,2,'Error zona wifi')
+            calcularDistancias(lat,lon)            
             
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 #................................................................................................................................................ 
 
 def guardarArchivoConUbicacionCercana():
